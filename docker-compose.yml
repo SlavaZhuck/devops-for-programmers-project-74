@@ -7,6 +7,7 @@ services:
     build:
       # Контекст для сборки образа,
       # в данном случае, текущая директория
-#      context: .
+      context: .
       dockerfile: ./Dockerfile.production
+    image: slavazhuck/devops-for-programmers-project-74
     command: make test
