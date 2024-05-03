@@ -22,7 +22,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}  
       
       - name: Check
-        run: make test
+        run: make run_tests
         
       - name: Build and push
         uses: docker/build-push-action@v5
