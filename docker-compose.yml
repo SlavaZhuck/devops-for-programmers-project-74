@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.production
     image: slavazhuck/devops-for-programmers-project-74
-    command: bash -c 'sleep 10 && npm run test'
+    command: make test
     environment:
         - DATABASE_HOST=${DATABASE_HOST-db}
         - DATABASE_NAME=${DATABASE_NAME-postgres}
@@ -18,7 +18,8 @@ services:
         - DATABASE_PASSWORD=${DATABASE_PASSWORD-password}
         - DATABASE_PORT=${DATABASE_PORT-5432}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
       #- healthcheck
 
       
@@ -29,9 +30,9 @@ services:
         - POSTGRES_DB=${DATABASE_NAME-postgres}
         - POSTGRES_PASSWORD=${DATABASE_PASSWORD-password}
         - POSTGRES_USER=${DATABASE_USERNAME-postgres}
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -U postgres"]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 5  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5  
         

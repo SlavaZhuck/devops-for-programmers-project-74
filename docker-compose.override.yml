@@ -9,7 +9,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
     - "8080:8080"
-    command: bash -c 'sleep 10 && npm start'
+    command: make start
       # Контекст для сборки образа,
       # в данном случае, текущая директория
     # Перечисляем тома (volumes)
