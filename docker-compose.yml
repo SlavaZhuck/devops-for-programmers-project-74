@@ -28,13 +28,19 @@ services:
   db:
     image: postgres:16-alpine
     restart: always
-    environment:
-        - POSTGRES_DB=${DATABASE_NAME-postgres}
-        - POSTGRES_PASSWORD=${DATABASE_PASSWORD-password}
-        - POSTGRES_USER=${DATABASE_USERNAME-postgres}
+    env_file:
+      - .env
+#    environment:
+#        - POSTGRES_DB=${DATABASE_NAME-postgres}
+#        - POSTGRES_PASSWORD=${DATABASE_PASSWORD-password}
+#        - POSTGRES_USER=${DATABASE_USERNAME-postgres}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5  
-        
+      
+volumes:
+  pgdata:
