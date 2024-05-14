@@ -1,8 +1,8 @@
-setup:
+compose-setup:
 	docker-compose run --rm app make setup
-test:
+compose-test:
 	docker-compose run --rm app make test
-up: 
+compose-up: 
 	docker-compose up --abort-on-container-exit
-run_tests:
+compose-run-tests:
 	docker-compose -f docker-compose.yml up --abort-on-container-exit --exit-code-from app

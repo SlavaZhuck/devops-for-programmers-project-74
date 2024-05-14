@@ -11,7 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      - name: copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "./app/.env.example"
+          target: "/.env"
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -22,7 +26,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}  
       
       - name: Check
-        run: make run_tests
+        run: make compose-run-tests
         
       - name: Build and push
         uses: docker/build-push-action@v5
